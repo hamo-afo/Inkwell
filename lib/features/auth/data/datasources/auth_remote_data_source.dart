@@ -34,7 +34,9 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       if (response.user == null) {
         throw const ServerException("User is null");
       }
-      return UserModel.fromJson(response.user!.toJson());
+      return UserModel.fromJson(response.user!.toJson()).copyWith(
+        email: email,
+      );
     } catch (e) {
       throw ServerException(e.toString());
     }
@@ -56,7 +58,20 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       if (response.user == null) {
         throw const ServerException('User is null!');
       }
-      return UserModel.fromJson(response.user!.toJson());
+      
+      // Auto sign in after signup to bypass email verification requirement
+      final loginResponse = await supabaseClient.auth.signInWithPassword(
+        email: email,
+        password: password,
+      );
+      
+      if (loginResponse.user == null) {
+        throw const ServerException('Login failed after signup!');
+      }
+      
+      return UserModel.fromJson(loginResponse.user!.toJson()).copyWith(
+        email: email,
+      );
     } catch (e) {
       throw ServerException(e.toString());
     }
@@ -70,7 +85,9 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
               'id',
               currentUserSession!.user.id,
             );
-        return UserModel.fromJson(userData.first);
+        return UserModel.fromJson(userData.first).copyWith(
+          email: currentUserSession!.user.email,
+        );
       }
       return null;
     } catch (e) {
