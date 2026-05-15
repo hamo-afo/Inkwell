@@ -41,3 +41,22 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Sensitive/Secret files
+.env
+.env.*
+!.env.example
+local.properties
+*.jks
+*.keystore
+google-services.json
+GoogleService-Info.plist
+firebase.json
+aws-credentials.json
+.aws/
+.ssh/
+**/secrets/
+**/credentials/
+*.pem
+*.key
+*.crt
