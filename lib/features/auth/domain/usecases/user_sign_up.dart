@@ -5,7 +5,6 @@ import 'package:blog_app/features/auth/domain/repository/auth_repository.dart';
 import 'package:fpdart/fpdart.dart';
 
 class UserSignUp implements UseCase<User, UserSignUpParams> {
-  @override
   final AuthRepository authRepository;
   const UserSignUp(this.authRepository);
   @override

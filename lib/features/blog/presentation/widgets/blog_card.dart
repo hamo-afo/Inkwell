@@ -4,7 +4,7 @@ import 'package:blog_app/features/blog/presentation/pages/blog_viewer_page.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class BlogCard extends StatelessWidget {                                              
+class BlogCard extends StatelessWidget {
   final Blog blog;
   final Color color;
   const BlogCard({
@@ -20,20 +20,17 @@ class BlogCard extends StatelessWidget {
         Navigator.push(context, BlogViewerPage.route(blog));
       },
       child: Container(
-        height: 200,
-        margin: const EdgeInsets.all(16).copyWith(
-          bottom: 4,
-        ),
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Column(
+              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SingleChildScrollView(
@@ -57,12 +54,12 @@ class BlogCard extends StatelessWidget {
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
                   ),
+                  maxLines: 4,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ],
             ),
-            const SizedBox(
-              height: 50,
-            ),
+            const SizedBox(height: 12),
             Text('${calculateReadingTime(blog.content)} min'),
           ],
         ),

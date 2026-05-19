@@ -30,3 +30,18 @@ class BlogLocalDataSourceImpl implements BlogLocalDataSource {
     });
   }
 }
+
+class InMemoryBlogLocalDataSource implements BlogLocalDataSource {
+  final List<BlogModel> _store = [];
+
+  @override
+  List<BlogModel> loadBlogs() {
+    return List<BlogModel>.from(_store);
+  }
+
+  @override
+  void uploadLocalBlogs({required List<BlogModel> blogs}) {
+    _store.clear();
+    _store.addAll(blogs);
+  }
+}

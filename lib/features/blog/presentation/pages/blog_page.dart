@@ -51,17 +51,21 @@ class _BlogPageState extends State<BlogPage> {
             return const Loader();
           }
           if (state is BlogDisplaySuccess) {
-            return ListView.builder(
+            return ListView.separated(
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
+              physics: const BouncingScrollPhysics(),
               itemCount: state.blogs.length,
+              separatorBuilder: (context, index) => const SizedBox(height: 12),
               itemBuilder: (context, index) {
                 final blog = state.blogs[index];
                 return BlogCard(
                   blog: blog,
-                  color: index % 3 == 0 
-                  ? AppPallete.gradient1 
-                  : index % 3 == 1 
-                  ? AppPallete.gradient2 
-                  : AppPallete.gradient3,);
+                  color: index % 3 == 0
+                      ? AppPallete.gradient1
+                      : index % 3 == 1
+                          ? AppPallete.gradient2
+                          : AppPallete.gradient3,
+                );
               },
             );
           }

@@ -37,6 +37,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       return UserModel.fromJson(response.user!.toJson()).copyWith(
         email: email,
       );
+    } on AuthException catch (e) {
+      throw ServerException(e.message);
     } catch (e) {
       throw ServerException(e.toString());
     }
@@ -58,20 +60,22 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       if (response.user == null) {
         throw const ServerException('User is null!');
       }
-      
+
       // Auto sign in after signup to bypass email verification requirement
       final loginResponse = await supabaseClient.auth.signInWithPassword(
         email: email,
         password: password,
       );
-      
+
       if (loginResponse.user == null) {
         throw const ServerException('Login failed after signup!');
       }
-      
+
       return UserModel.fromJson(loginResponse.user!.toJson()).copyWith(
         email: email,
       );
+    } on AuthException catch (e) {
+      throw ServerException(e.message);
     } catch (e) {
       throw ServerException(e.toString());
     }
