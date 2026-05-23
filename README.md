@@ -72,7 +72,7 @@ The app expects Supabase credentials in:
 
 - `lib/core/secrects/app_secrets.dart`
 
-Create that file with your Supabase project URL and anon key.
+Update that file locally with your Supabase project URL and anon key. Do not commit real values to GitHub.
 
 Example:
 

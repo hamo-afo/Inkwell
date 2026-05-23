@@ -47,6 +47,8 @@ app.*.map.json
 .env.*
 !.env.example
 local.properties
+.vscode/settings.json
+lib/core/secrects/app_secrets.dart
 *.jks
 *.keystore
 google-services.json
